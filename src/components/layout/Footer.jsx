@@ -21,8 +21,14 @@ export default function Footer() {
 
           {/* Empresa */}
           <div>
-            <h2 className="text-3xl font-black">
-              Sistemas<span className="text-green-400">803</span>
+            <img
+            src="/images/branding/logofoot.webp"
+            alt="Sistemas803"
+            className="h-12 w-auto"
+          />
+
+          <h2 className="text font-black">
+              Soluciones<span className="text-green-400">Tecnológicas</span>
             </h2>
 
             <p className="mt-6 leading-8 text-slate-400">

@@ -1,54 +1,143 @@
-import { Menu, Phone } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Menu, X, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const links = [
+  { name: "Inicio", href: "#" },
+  { name: "Servicios", href: "#servicios" },
+  { name: "Nosotros", href: "#nosotros" },
+  { name: "Proceso", href: "#proceso" },
+  { name: "Contacto", href: "#contacto" },
+];
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 h-20">
+    <header
+      className={`fixed left-0 top-0 z-50 w-full transition-all duration-500 ${
+        scrolled
+          ? "bg-white/80 backdrop-blur-xl shadow-lg border-b border-slate-200"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
         {/* Logo */}
-        <div className="flex items-center gap-3">
 
-          <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-700 to-green-500 flex items-center justify-center text-white text-2xl font-black shadow-lg">
-            8
+        <a href="#" className="flex items-center gap-3">
+
+          <img
+            src="/images/branding/logo.webp"
+            alt="Sistemas803"
+            className="h-12 w-auto"
+          />
+          <div className="hidden md:block">
+
+            <h2 className="text-xl font-black text-slate-900">
+              Soluciones
+              <span className="text-blue-700">Tecnológicas</span>
+            </h2>
+
           </div>
 
-          <div>
-            <h1 className="text-2xl font-black">
-              Sistemas
-              <span className="text-green-600">803</span>
-            </h1>
+         
+        </a>
 
-            <p className="text-xs text-slate-500">
-              Soluciones Tecnológicas
-            </p>
-          </div>
+        {/* Menú Desktop */}
 
-        </div>
+        <nav className="hidden gap-8 lg:flex">
 
-        {/* Menú */}
-        <nav className="hidden lg:flex gap-8 text-slate-700 font-medium">
-          <a href="#">Inicio</a>
-          <a href="#servicios">Servicios</a>
-          <a href="#nosotros">Nosotros</a>
-          <a href="#contacto">Contacto</a>
+          {links.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="font-medium text-slate-700 transition hover:text-blue-700"
+            >
+              {link.name}
+            </a>
+          ))}
+
         </nav>
 
-        {/* Botón WhatsApp */}
+        {/* Botón */}
+
         <a
           href="https://wa.me/51933735851"
           target="_blank"
           rel="noreferrer"
-          className="hidden lg:flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-semibold transition"
+          className="hidden lg:flex items-center gap-2 rounded-xl bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:scale-105"
         >
-          <Phone size={18}/>
-          Contáctanos
+          WhatsApp
+
+          <ArrowRight size={18} />
         </a>
 
-        <button className="lg:hidden">
-          <Menu />
+        {/* Botón móvil */}
+
+        <button
+          className="lg:hidden"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <X /> : <Menu />}
         </button>
 
       </div>
+
+      {/* Menú móvil */}
+
+      <AnimatePresence>
+
+        {menuOpen && (
+
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="border-t bg-white lg:hidden"
+          >
+
+            <div className="flex flex-col p-6">
+
+              {links.map((link) => (
+
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="py-3 font-medium text-slate-700"
+                >
+                  {link.name}
+                </a>
+
+              ))}
+
+              <a
+                href="https://wa.me/51933735851"
+                className="mt-6 rounded-xl bg-green-600 py-3 text-center font-semibold text-white"
+              >
+                Contactar por WhatsApp
+              </a>
+
+            </div>
+
+          </motion.div>
+
+        )}
+
+      </AnimatePresence>
+
     </header>
   );
 }

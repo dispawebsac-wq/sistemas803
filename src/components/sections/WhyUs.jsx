@@ -63,7 +63,7 @@ export default function WhyUs() {
           <div className="mt-16 grid grid-cols-2 gap-6 text-center md:grid-cols-4">
 
   <div>
-    <h3 className="text-5xl font-black text-green-400">10+</h3>
+    <h3 className="text-5xl font-black text-green-400">5+</h3>
     <p className="mt-2 text-slate-300">Años de experiencia</p>
   </div>
 
