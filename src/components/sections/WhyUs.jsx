@@ -40,9 +40,12 @@ const benefits = [
   },
 ];
 
+
+
 export default function WhyUs() {
   return (
-    <section className="py-28 bg-slate-900 text-white">
+    <section id="nosotros"
+     className="py-28 bg-slate-900 text-white">
 
       <div className="mx-auto max-w-7xl px-6">
 

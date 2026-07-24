@@ -34,7 +34,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="py-28 bg-white">
+    <section id="proceso" className="py-28 bg-white">
 
       <div className="mx-auto max-w-7xl px-6">
 
